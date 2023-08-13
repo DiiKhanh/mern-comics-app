@@ -51,7 +51,7 @@ const getRecommendComics = async (req, res) => {
 
 const getNewComics = async (req, res) => {
   try {
-    const { page=1, status='all' } = req.query;
+    const { page = 1, status = 'all' } = req.query;
     const response = await comicsApi.getNewComics({ page, status });
     return responseHandler.ok(res, response);
   } catch {
@@ -59,4 +59,74 @@ const getNewComics = async (req, res) => {
   }
 };
 
-export default { getTrending, getGenres, getComicsByGenre, search, getRecommendComics, getNewComics };
+const getBoyComics = async (req, res) => {
+  try {
+    const { page } = req.query;
+    const response = await comicsApi.getBoyComics({ page });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getGirlComics = async (req, res) => {
+  try {
+    const { page } = req.query;
+    const response = await comicsApi.getGirlComics({ page });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getCompletedComics = async (req, res) => {
+  try {
+    const { page } = req.query;
+    const response = await comicsApi.getCompletedComics({ page });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getRecentUpdate = async (req, res) => {
+  try {
+    const { page } = req.query;
+    const response = await comicsApi.getRecentUpdate({ page });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getComicDetail = async (req, res) => {
+  try {
+    const { comicId } = req.params;
+    const response = await comicsApi.getComicDetail({ comicId });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getComicChapters = async (req, res) => {
+  try {
+    const { comicId } = req.params;
+    const response = await comicsApi.getComicChapters({ comicId });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getComicChapterDetail = async (req, res) => {
+  try {
+    const { comicId, chapterId } = req.params;
+    const response = await comicsApi.getComicChapterDetail({ comicId, chapterId });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+export default { getTrending, getGenres, getComicsByGenre, search, getRecommendComics, getNewComics, getBoyComics, getGirlComics, getCompletedComics, getRecentUpdate, getComicDetail, getComicChapters, getComicChapterDetail };
