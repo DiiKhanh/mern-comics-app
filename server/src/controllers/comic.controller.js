@@ -1,5 +1,9 @@
 import comicsApi from '../apis/comics.api.js';
 import responseHandler from '../handlers/response.handler.js';
+import tokenMiddleWare from '../middlewares/token.middleware.js';
+import favoriteModel from '../models/favorite.model.js';
+import userModel from '../models/user.model.js';
+import reviewModel from '../models/review.model.js';
 
 const getTrending = async (req, res) => {
   try {
@@ -102,8 +106,23 @@ const getRecentUpdate = async (req, res) => {
 const getComicDetail = async (req, res) => {
   try {
     const { comicId } = req.params;
-    const response = await comicsApi.getComicDetail({ comicId });
-    return responseHandler.ok(res, response);
+    const params = { comicId };
+    const comic = await comicsApi.getComicDetail(params);
+    comic.recommend = await comicsApi.getRecommend();
+
+    const tokenDecoded = tokenMiddleWare.tokenDecode(req);
+    if (tokenDecoded) {
+      const user = await userModel.findById(tokenDecoded.data);
+
+      if (user) {
+        const isFavorite = await favoriteModel.findOne({ user: user.id, comicId });
+        comic.isFavorite = isFavorite !== null;
+      }
+    }
+
+    comic.reviews = await reviewModel.find({ comicId }).populate('user').sort('-createAt');
+
+    return responseHandler.ok(res, comic);
   } catch {
     responseHandler.error(res);
   }
@@ -129,4 +148,15 @@ const getComicChapterDetail = async (req, res) => {
   }
 };
 
-export default { getTrending, getGenres, getComicsByGenre, search, getRecommendComics, getNewComics, getBoyComics, getGirlComics, getCompletedComics, getRecentUpdate, getComicDetail, getComicChapters, getComicChapterDetail };
+const getTopType = async (req, res) => {
+  try {
+    const { topType } = req.params;
+    const { page, status } = req.query;
+    const response = await comicsApi.getTopType({ topType, page, status });
+    return responseHandler.ok(res, response);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+export default { getTrending, getGenres, getComicsByGenre, search, getRecommendComics, getNewComics, getBoyComics, getGirlComics, getCompletedComics, getRecentUpdate, getComicDetail, getComicChapters, getComicChapterDetail, getTopType };

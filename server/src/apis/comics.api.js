@@ -13,7 +13,11 @@ const comicType = {
   recentUpdate: 'recent-update-comics',
   comicDetail: (comicId) => `comics/${comicId}`,
   comicChapters: (comicId) => `comics/${comicId}/chapters`,
-  comicChapterDetail: (comicId, chapterId) => `comics/${comicId}/chapters/${chapterId}`
+  comicChapterDetail: (comicId, chapterId) => `comics/${comicId}/chapters/${chapterId}`,
+  comicTop: (topType) => {
+    if (topType === 'top-comics') return 'top';
+    return `top/${topType}`;
+  }
 };
 
 const comicsApi = {
@@ -75,6 +79,11 @@ const comicsApi = {
   getComicChapterDetail: async ({ comicId, chapterId }) => {
     const endpoint = comicType.comicChapterDetail(comicId, chapterId);
     return await axiosClient.get(comicsConfig.getUrl(endpoint));
+  },
+  getTopType: async ({ topType, page, status }) => {
+    const endpoint = comicType.comicTop(topType);
+    const params = { page, status };
+    return await axiosClient.get(comicsConfig.getUrl(endpoint, params));
   }
 };
 

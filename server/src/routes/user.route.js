@@ -4,6 +4,7 @@ import requestHandler from '../handlers/request.handler.js';
 import tokenMiddleware from '../middlewares/token.middleware.js';
 import { body } from 'express-validator';
 import userModel from '../models/user.model.js';
+import favoriteController from '../controllers/favorite.controller.js';
 
 const router = express.Router({ mergeParams: true });
 
@@ -56,8 +57,39 @@ router.put('/update-password', tokenMiddleware.auth,
 
 router.get('/info', tokenMiddleware.auth, userController.getInfo );
 
-router.get('/favorites');
-router.post('/favorites');
-router.delete('/favorites/:favoriteId');
+router.get(
+  '/favorites',
+  tokenMiddleware.auth,
+  favoriteController.getFavoritesOfUser
+);
+
+router.post(
+  '/favorites',
+  tokenMiddleware.auth,
+  body('comicType')
+    .exists().withMessage('comicType is required'),
+  body('comicId')
+    .exists().withMessage('comicId is required')
+    .isLength({ min: 1 }).withMessage('comicId can not be empty'),
+  body('comicTitle')
+    .exists().withMessage('mediaTitle is required'),
+  body('comicThumbnail')
+    .exists().withMessage('comicThumbnail is required'),
+  body('comicStatus')
+    .exists().withMessage('comicStatus is required'),
+  body('comicViews')
+    .exists().withMessage('comicViews is required'),
+  body('comicFollowers')
+    .exists().withMessage('comicFollowers is required'),
+  body('comicUpdate').exists().withMessage('comicUpdate is required'),
+  requestHandler.validate,
+  favoriteController.addFavorite
+);
+
+router.delete(
+  '/favorites/:favoriteId',
+  tokenMiddleware.auth,
+  favoriteController.removeFavorite
+);
 
 export default router;

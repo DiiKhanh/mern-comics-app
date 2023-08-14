@@ -16,5 +16,6 @@ router.get('/recent', comicController.getRecentUpdate);
 router.get('/detail/:comicId', comicController.getComicDetail);
 router.get('/chapters/:comicId', comicController.getComicChapters);
 router.get('/chapters/:comicId/:chapterId', comicController.getComicChapterDetail);
+router.get('/top/:topType', comicController.getTopType);
 
 export default router;
