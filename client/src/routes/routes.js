@@ -56,11 +56,13 @@ const routes = [
   },
   {
     path: '/genres/:genreId',
-    element: <ComicGenres />
+    element: <ComicGenres />,
+    state: 'genres'
   },
   {
     path: '/top/:topType',
-    element: <ComicTop />
+    element: <ComicTop />,
+    state: 'top'
   },
   {
     path: '/comic/:comicId',

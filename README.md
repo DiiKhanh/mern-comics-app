@@ -1,6 +1,7 @@
 # Comics App
 
 comics website using MERN
+Thanks for comics api from [link](https://github.com/pth-1641/Comics-API)
 
 ## Official Link
 
@@ -9,7 +10,6 @@ comics website using MERN
 - Express
 - Material
 - React
-
 ## Features
 
 
