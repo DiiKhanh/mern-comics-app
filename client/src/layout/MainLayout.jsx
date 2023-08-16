@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
 import GlobalLoading from '../components/GlobalLoading';
 import TopBar from '../components/TopBar';
+import AuthModal from '../components/AuthModal';
 
 const MainLayout = () => {
   return (
@@ -9,6 +10,7 @@ const MainLayout = () => {
       {/* loading */}
       <GlobalLoading />
       {/* login */}
+      <AuthModal />
       {/* login */}
       {/* view  */}
       <Box display='flex' minHeight='100vh' height='1000px'>

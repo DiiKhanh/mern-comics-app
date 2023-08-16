@@ -13,6 +13,7 @@ import { setUser } from '../redux/features/userSlice';
 import { Link } from 'react-router-dom';
 import menuConfigs from '../configs/menu.configs';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { toast } from 'react-toastify';
 
 
 const UserMenu = () => {
@@ -27,19 +28,25 @@ const UserMenu = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSignout = () => {
+    dispatch(setUser(null));
+    toast.success('Sign out success');
+  };
+
   return (
     <>
       {
         user && <>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <TextAvatar text={user?.displayName}/>
               </IconButton>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -68,12 +75,12 @@ const UserMenu = () => {
               ))}
               <ListItemButton
                 sx={{ borderRadius: '10px' }}
-                onClick={() => dispatch(setUser(null))}
+                onClick={handleSignout}
               >
                 <ListItemIcon><LogoutOutlinedIcon /></ListItemIcon>
                 <ListItemText disableTypography primary={
                   <Typography textTransform='uppercase'>sign out</Typography>
-                } />
+                }/>
               </ListItemButton>
             </Menu>
           </Box>

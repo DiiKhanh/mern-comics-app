@@ -20,7 +20,8 @@ const signup = async (req, res) => {
     const token = jsonwebtoken.sign({ data: user.id }, process.env.TOKEN_SECRET, {
       expiresIn: '24h'
     });
-
+    user.password = undefined;
+    user.salt = undefined;
     return responseHandler.created(res, {
       token,
       id: user.id,
@@ -35,7 +36,7 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await userModel.findOne({ username }).select('username password salt id displayname email');
+    const user = await userModel.findOne({ username }).select('username password salt id displayName email');
 
     if (!user) return responseHandler.badrequest(res, 'User not exist');
     if (!user.validPassword(password)) return responseHandler.badrequest(res, 'Wrong password');
@@ -46,10 +47,10 @@ const signin = async (req, res) => {
 
     user.password = undefined;
     user.salt = undefined;
-
     return responseHandler.ok(res, {
       token,
       id: user.id,
+      displayName: user.displayName,
       ...user._doc
     });
 

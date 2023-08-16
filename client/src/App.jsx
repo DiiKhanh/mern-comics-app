@@ -4,10 +4,19 @@ import MainLayout from './layout/MainLayout';
 import routes from './routes/routes';
 import PageWrapper from './components/PageWrapper';
 import NotFoundPage from './pages/NotFoundPage';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+      />
       <CssBaseline />
       {/* router app */}
       <BrowserRouter>
