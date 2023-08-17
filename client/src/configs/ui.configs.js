@@ -27,7 +27,14 @@ const uiConfigs = {
       maxWidth: '1366px',
       margin: 'auto',
       padding: 2
-    }
+    },
+    backgroundImage: (imgPath) => ({
+      position: 'relative',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'darkgrey',
+      backgroundImage: `url(${imgPath})`
+    })
   },
   size: {
     sidebarWidth: '300px',

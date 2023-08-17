@@ -17,6 +17,9 @@ import menuConfigs from '../configs/menu.configs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthModalOpen } from '../redux/features/authModalSlice';
 import SideBar from './SideBar';
+import Fade from '@mui/material/Fade';
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const ScrollTopBar = ({ children, window }) => {
   const { mode } = useColorScheme();
@@ -39,6 +42,36 @@ const ScrollTopBar = ({ children, window }) => {
   );
 };
 
+const ScrollTop = ({ children, window }) => {
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 50
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      '#back-to-top-anchor'
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <Fade in={trigger}>
+      <Box
+        onClick={handleClick}
+        role='presentation'
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+      >
+        {children}
+      </Box>
+    </Fade>
+  );
+};
+
 const TopBar = () => {
   const dispatch = useDispatch();
   const { appState } = useSelector(state => state.appState);
@@ -47,13 +80,16 @@ const TopBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
+  const { mode } = useColorScheme();
+
   return (
     <>
       <SideBar open={sidebarOpen} toggleSidebar={toggleSidebar}/>
+      <Toolbar id="back-to-top-anchor"/>
       <ScrollTopBar>
         <AppBar sx={{ zIndex: 999 }}>
           <Container maxWidth='xl'>
-            <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between' }} >
+            <Toolbar sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
               {/* mobile */}
               <Stack direction='row' spacing={1} alignItems='center'>
                 <IconButton
@@ -111,6 +147,15 @@ const TopBar = () => {
           </Container>
         </AppBar>
       </ScrollTopBar>
+      <ScrollTop>
+        <Fab size='small' aria-label='scroll back to top'
+          sx={{
+            bgcolor: mode === 'dark' ? 'primary.main' : 'initial'
+          }}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </>
   );
 };
