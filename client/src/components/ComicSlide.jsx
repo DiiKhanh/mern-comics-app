@@ -27,7 +27,6 @@ const ComicSlide = ({ comicType }) => {
     getComicsTrending();
   }, [comicType]);
 
-
   return (
     <AutoSwiper>
       {comics?.map((comic, index) => (

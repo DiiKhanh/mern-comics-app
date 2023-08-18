@@ -13,7 +13,8 @@ export const routesGen = {
   home: '/',
   favoriteList: '/favorites',
   reviewList: '/reviews',
-  passwordUpdate: 'password-update'
+  passwordUpdate: 'password-update',
+  comicDetail: (comicId) => `/comic/${comicId}`
 };
 
 const routes = [
