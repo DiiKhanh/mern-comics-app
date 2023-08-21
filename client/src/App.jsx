@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/grid';
 
 const App = () => {
   return (

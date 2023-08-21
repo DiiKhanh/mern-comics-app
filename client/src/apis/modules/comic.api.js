@@ -2,14 +2,22 @@ import privateClient from '../client/private.client';
 import publicClient from '../client/public.client';
 
 const comicEndpoints = {
-  trending: (comicType) => `comic/${comicType}`
+  type: (comicType) => `comic/${comicType}`
 };
 
 const comicApi = {
   getTrending: async ({ comicType }) => {
     try {
       const response = await publicClient.get(
-        comicEndpoints.trending(comicType)
+        comicEndpoints.type(comicType)
+      );
+      return { response };
+    } catch (err) { return { err }; }
+  },
+  getPopular:  async ({ comicType }) => {
+    try {
+      const response = await publicClient.get(
+        comicEndpoints.type(comicType)
       );
       return { response };
     } catch (err) { return { err }; }

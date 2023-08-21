@@ -1,6 +1,7 @@
 const comicType = {
   trending: 'trending',
-  genres: 'genres'
+  genres: 'genres',
+  popular: 'recommend'
 };
 
 

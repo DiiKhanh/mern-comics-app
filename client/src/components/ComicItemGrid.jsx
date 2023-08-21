@@ -7,8 +7,11 @@ import { routesGen } from '../routes/routes';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import favoriteUtils from '../utils/favorite.utils';
 import { useSelector } from 'react-redux';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { Divider } from '@mui/material';
 
-const ComicItem = ({ comic }) => {
+const ComicItemGrid = ({ comic }) => {
   const { listFavorites } = useSelector(state => state.user);
   return (
     <>
@@ -23,7 +26,8 @@ const ComicItem = ({ comic }) => {
               transformOrigin: 'bottom',
               '&:hover' : {
                 scale: '1.05'
-              }
+              },
+              width: { md: '250px' }
             }}
             image={comic?.thumbnail}
             title={comic?.title}
@@ -76,8 +80,6 @@ const ComicItem = ({ comic }) => {
             color: '#fff',
             fontWeight: 'bold',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
             flexDirection: 'column',
             padding: '32px 32px'
           }}>
@@ -93,6 +95,26 @@ const ComicItem = ({ comic }) => {
               '-webkit-box-orient': 'vertical',
               '-webkit-line-clamp': '2'
             }}>{comic?.title}</Typography>
+            <Divider sx={{ border:'1px solid gray', marginBottom: '0.5rem', marginTop:'1rem' }} />
+            <Box className='title'>
+              <Typography fontSize='14px' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{
+                comic?.genres.map((g) => g.name).join(' | ')
+              }</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems:'center', justifyContent:'center', gap: '15px', paddingTop: '10px' }} className='title'>
+              <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
+                <RemoveRedEyeIcon fontSize='14px' /><Typography
+                  sx={{ fontSize: '14px' }}
+                >{Intl.NumberFormat('en', { notation: 'compact' }).format(
+                    comic?.total_views)}</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
+                <ThumbUpIcon fontSize='14px' /><Typography
+                  sx={{ fontSize: '14px' }}
+                >{Intl.NumberFormat('en', { notation: 'compact' }).format(
+                    comic?.followers)}</Typography>
+              </Box>
+            </Box>
           </Box>
           {
             favoriteUtils.check({ listFavorites, comicId: comic.id })
@@ -113,4 +135,4 @@ const ComicItem = ({ comic }) => {
 
 };
 
-export default ComicItem;
+export default ComicItemGrid;

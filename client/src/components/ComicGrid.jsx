@@ -1,13 +1,14 @@
 import { SwiperSlide } from 'swiper/react';
-import AutoSwiper from './AutoSwiper';
-import ComicItem from './ComicItem';
 import { useEffect, useState } from 'react';
 import comicApi from '../apis/modules/comic.api';
 import { toast } from 'react-toastify';
+import NavigationSwiper from './NavigationSwiper';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import ComicItemGrid from './ComicItemGrid';
 
-const ComicSlide = ({ comicType }) => {
+
+const ComicGrid = ({ comicType }) => {
 
   const [comics, setComics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +16,11 @@ const ComicSlide = ({ comicType }) => {
   useEffect(() => {
     const getComicsTrending = async () => {
       try {
-        const { response, err } = await comicApi.getPopular({ comicType });
+        const { response, err } = await comicApi.getTrending({ comicType });
         if (err) {
           toast.error(err.message);
         } else if (response) {
-          setComics(response);
+          setComics(response.comics);
         }
       } catch {
         toast.error('An error occurred while fetching data.');
@@ -41,15 +42,16 @@ const ComicSlide = ({ comicType }) => {
     </Box>
   );
 
+
   return (
-    <AutoSwiper>
+    <NavigationSwiper>
       {comics?.map((comic, index) => (
-        <SwiperSlide key={index + comic.id}>
-          <ComicItem comic={comic} />
+        <SwiperSlide key={index}>
+          <ComicItemGrid comic={comic} />
         </SwiperSlide>
       ))}
-    </AutoSwiper>
+    </NavigationSwiper>
   );
 };
 
-export default ComicSlide;
+export default ComicGrid;
