@@ -2,7 +2,8 @@ import privateClient from '../client/private.client';
 import publicClient from '../client/public.client';
 
 const comicEndpoints = {
-  type: (comicType) => `comic/${comicType}`
+  type: (comicType) => `comic/${comicType}`,
+  detail: (comicId) => `comic/detail/${comicId}`
 };
 
 const comicApi = {
@@ -19,6 +20,12 @@ const comicApi = {
       const response = await publicClient.get(
         comicEndpoints.type(comicType)
       );
+      return { response };
+    } catch (err) { return { err }; }
+  },
+  getComicDetail: async ({ comicId }) => {
+    try {
+      const response = await privateClient.get(comicEndpoints.detail(comicId));
       return { response };
     } catch (err) { return { err }; }
   }

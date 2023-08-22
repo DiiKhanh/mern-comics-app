@@ -39,6 +39,14 @@ const uiConfigs = {
   size: {
     sidebarWidth: '300px',
     contentMaxWidth: '1366px'
+  },
+  backgroundDetail: {
+    position:'absolute',
+    height:'20rem',
+    top:0,
+    insetInline:0,
+    zIndex:-10,
+    backgroundImage: 'linear-gradient(to bottom, #d1fae5, rgba(209,250,229,0))'
   }
 };
 
