@@ -8,8 +8,6 @@ const NavigationSwiper = ({ children }) => {
       '& .swiper-slide': {
         textAlign: 'center',
         fontSize: '18px',
-        // height: '250px',
-        /* Center slide text vertically */
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -31,7 +29,6 @@ const NavigationSwiper = ({ children }) => {
     }}>
       <Swiper
         grabCursor={true}
-        slidesPerView={5}
         grid={{
           rows: 2,
           fill: 'row'

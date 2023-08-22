@@ -26,8 +26,7 @@ const ComicItemGrid = ({ comic }) => {
               transformOrigin: 'bottom',
               '&:hover' : {
                 scale: '1.05'
-              },
-              width: { md: '250px' }
+              }
             }}
             image={comic?.thumbnail}
             title={comic?.title}

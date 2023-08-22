@@ -16,7 +16,7 @@ const ComicGrid = ({ comicType }) => {
   useEffect(() => {
     const getComicsTrending = async () => {
       try {
-        const { response, err } = await comicApi.getTrending({ comicType });
+        const { response, err } = await comicApi.getType({ comicType, page: 1 });
         if (err) {
           toast.error(err.message);
         } else if (response) {

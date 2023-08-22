@@ -6,10 +6,10 @@ const comicEndpoints = {
 };
 
 const comicApi = {
-  getTrending: async ({ comicType }) => {
+  getType: async ({ comicType, page }) => {
     try {
       const response = await publicClient.get(
-        comicEndpoints.type(comicType)
+        comicEndpoints.type(comicType)+`?page=${page}`
       );
       return { response };
     } catch (err) { return { err }; }
