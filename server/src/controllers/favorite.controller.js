@@ -15,10 +15,11 @@ const addFavorite = async (req, res) => {
       user: req.user.id
     });
 
+
     await favorite.save();
 
     responseHandler.created(res, favorite);
-  } catch {
+  } catch (error) {
     responseHandler.error(res);
   }
 };

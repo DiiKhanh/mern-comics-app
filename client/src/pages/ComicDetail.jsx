@@ -10,6 +10,17 @@ import { setAuthModalOpen } from '../redux/features/authModalSlice';
 import comicApi from '../apis/modules/comic.api';
 import favoriteApi from '../apis/modules/favorite.api';
 import uiConfigs from '../configs/ui.configs';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { LoadingButton } from '@mui/lab';
+import Stack from '@mui/material/Stack';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
@@ -18,10 +29,16 @@ const ComicDetail = () => {
 
   const { user, listFavorites } = useSelector(state => state.user);
 
-  const [media, setMedia] = useState();
+  const [comic, setComic] = useState();
   const [isFavorite, setIsFavorite] = useState(false);
   const [onRequest, setOnRequest] = useState(false);
   const [genres, setGenres] = useState([]);
+
+  const [show, setShow] = useState(false);
+
+  const setClickShow = () => {
+    setShow(prev => !prev);
+  };
 
   useEffect(() => {
     const getComic = async () => {
@@ -29,7 +46,7 @@ const ComicDetail = () => {
         dispatch(setGlobalLoading(true));
         const { response, err } = await comicApi.getComicDetail({ comicId });
         if (response) {
-          setMedia(response);
+          setComic(response);
           setIsFavorite(response.isFavorite);
           setGenres(response.genres);
         }
@@ -65,10 +82,13 @@ const ComicDetail = () => {
 
   const onAddFavorite = async () => {
     const body = {
-      mediaId: media.id,
-      mediaTitle: media.title || media.name,
-      mediaPoster: media.poster_path || media.backdrop_path,
-      mediaRate: media.vote_average
+      comicId: comic?.id,
+      comicTitle: comic?.title,
+      comicThumbnail: comic?.thumbnail,
+      comicStatus: comic?.status,
+      comicViews: comic?.total_views,
+      comicFollowers: comic?.followers,
+      comicUpdate: comic?.status
     };
 
     const { response, err } = await favoriteApi.add(body);
@@ -84,7 +104,7 @@ const ComicDetail = () => {
 
   const onRemoveFavorite = async () => {
     const favorite = listFavorites.find(
-      (e) => e.mediaId.toString() === media.id.toString()
+      (e) => e.comicId === comic.id
     );
 
     const { response, err } = await favoriteApi.remove({ favoriteId: favorite.id });
@@ -99,21 +119,131 @@ const ComicDetail = () => {
   };
 
   return (
-    media ? (
+    comic ? (
       <>
         <Container maxWidth='xl' sx={{ marginTop: '5rem' }}>
           <Box sx={{ color: 'primary.contrastText', position: 'relative',
             ...uiConfigs.style.mainContent }} >
             {/* media content */}
-            <Box sx={{
-              ...uiConfigs.backgroundDetail
-            }}></Box>
-            <Box sx={{
-              display: 'flex',
-              flexDirection: { md: 'row', xs: 'column' }
-            }}>
-              Content
-            </Box>
+            <Box sx={{ ...uiConfigs.backgroundDetail }}></Box>
+            {/* grid */}
+            <Grid container spacing={5} sx={{ justifyContent:'center' }}>
+
+              <Grid item>
+                <Box sx={{
+                  width: { sm:'100%', xs:'14rem' },
+                  aspectRatio:'2/3',
+                  marginX:'auto',
+                  border:'2px solid #55E6C1',
+                  borderRadius:'0.5rem',
+                  overflow:'hidden'
+                }}>
+                  <img alt={comic?.title} src={comic?.thumbnail}
+                    style={{ maxWidth:'100%', height:'100%', objectFit:'cover' }}
+                  />
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction='column' spacing={4}>
+                  <Grid item xs>
+                    <Typography gutterBottom variant='subtitle1'
+                      sx={{
+                        fontSize:'1.875rem',
+                        lineHeight:'2.25rem',
+                        fontWeight:'800'
+                      }}
+                    >
+                      {
+                        comic?.title
+                      }
+                    </Typography>
+                    <Typography variant='subtitle2'
+                      sx={{ fontWeight: '400', lineHeight:'1.125rem', marginBottom:'20px' }}
+                    >
+                      {
+                        comic?.other_names.join(' | ')
+                      }
+                    </Typography>
+                    <Box display='flex' alignItems='center' flexWrap='wrap' gap={1}>
+                      {
+                        genres?.map((g, i) => (
+                          <Button key={i} sx={{
+                            backgroundColor:'transparent',
+                            color:'inherit',
+                            border: '2px solid #55E6C1',
+                            '&:hover' : {
+                              backgroundColor:'#55E6C1'
+                            }
+                          }}>
+                            {g.name}
+                          </Button>
+                        ))
+                      }
+                    </Box>
+                    <Typography marginY={1} fontWeight='600'>
+                      Tác giả: {comic?.authors}
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems:'center', gap: '15px' }} className='title'>
+                      <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
+                        <RemoveRedEyeIcon fontSize='medium' sx={{ color:'blue' }}/><Typography
+                          sx={{ fontSize: '16px' }}
+                        >{comic?.total_views.toLocaleString()}</Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
+                        <ThumbUpIcon fontSize='medium' sx={{ color: 'orange' }} /><Typography
+                          sx={{ fontSize: '16px' }}
+                        >{ comic?.followers.toLocaleString()}</Typography>
+                      </Box>
+                    </Box>
+                    <Box marginY={3}>
+                      <Typography sx={{
+                        display: `${show ? 'block' : '-webkit-box'}`,
+                        '-webkit-box-orient': `${show ? 'horizontal' : 'vertical'}`,
+                        '-webkit-line-clamp': `${show ? 'none' : '3'}`,
+                        overflow:`${show ? 'visible' : 'hidden'}`
+                      }} variant='inherit'>
+                        {comic?.description.replace(/NetTruyen/g, 'KComics')}
+                      </Typography>
+                      <Button onClick={setClickShow} sx={{ padding:0 }}>
+                        { show ? 'Show less' : 'Show more'}
+                      </Button>
+                    </Box>
+                    {/* buttons */}
+                    <Stack direction='row' spacing={1}>
+                      <LoadingButton
+                        variant='text'
+                        sx={{
+                          width: 'max-content',
+                          '& .MuiButon-starIcon': { marginRight: '0' }
+                        }}
+                        size='large'
+                        startIcon={isFavorite ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
+                        loadingPosition='start'
+                        loading={onRequest}
+                        onClick={onFavoriteClick}
+                      />
+                      <Button
+                        variant='contained'
+                        sx={{ width: 'max-content' }}
+                        size='large'
+                        startIcon={<TurnedInNotIcon />}
+                      >
+                      read now
+                      </Button>
+                      <Button
+                        variant='outlined'
+                        sx={{ width: 'max-content' }}
+                        size='large'
+                        startIcon={<DownloadIcon />}
+                      >
+                      download now
+                      </Button>
+                    </Stack>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
       </>

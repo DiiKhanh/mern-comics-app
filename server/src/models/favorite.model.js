@@ -7,13 +7,6 @@ const favoriteSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  comicType: {
-    type: [{
-      id: String,
-      genre: String
-    }],
-    required: true
-  },
   comicId: {
     type: String,
     required: true

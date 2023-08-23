@@ -15,21 +15,25 @@ const favoriteApi = {
     } catch (err) { return { err }; }
   },
   add: async ({
-    mediaId,
-    mediaType,
-    mediaTitle,
-    mediaPoster,
-    mediaRate
+    comicId,
+    comicTitle,
+    comicThumbnail,
+    comicStatus,
+    comicViews,
+    comicFollowers,
+    comicUpdate
   }) => {
     try {
       const response = await privateClient.post(
         favoriteEndpoints.add,
         {
-          mediaId,
-          mediaType,
-          mediaTitle,
-          mediaPoster,
-          mediaRate
+          comicId,
+          comicTitle,
+          comicThumbnail,
+          comicStatus,
+          comicViews,
+          comicFollowers,
+          comicUpdate
         }
       );
 

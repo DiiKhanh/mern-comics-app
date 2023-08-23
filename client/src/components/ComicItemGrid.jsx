@@ -102,13 +102,13 @@ const ComicItemGrid = ({ comic }) => {
             </Box>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems:'center', justifyContent:'center', gap: '15px', paddingTop: '10px' }} className='title'>
               <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
-                <RemoveRedEyeIcon fontSize='14px' /><Typography
+                <RemoveRedEyeIcon fontSize='small' /><Typography
                   sx={{ fontSize: '14px' }}
                 >{Intl.NumberFormat('en', { notation: 'compact' }).format(
                     comic?.total_views)}</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
-                <ThumbUpIcon fontSize='14px' /><Typography
+                <ThumbUpIcon fontSize='small' /><Typography
                   sx={{ fontSize: '14px' }}
                 >{Intl.NumberFormat('en', { notation: 'compact' }).format(
                     comic?.followers)}</Typography>

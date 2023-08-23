@@ -18,8 +18,8 @@ export const userSlice = createSlice({
       state.listFavorites = action.payload;
     },
     removeFavorite: (state, action) => {
-      const { mediaId } = action.payload;
-      state.listFavorites = [...state.listFavorites].filter(e => e.mediaId.toString() !== mediaId.toString());
+      const { comicId } = action.payload;
+      state.listFavorites = [...state.listFavorites].filter(e => e.comicId.toString() !== comicId.toString());
     },
     addFavorite: (state, action) => {
       state.listFavorites = [action.payload, ...state.listFavorites];

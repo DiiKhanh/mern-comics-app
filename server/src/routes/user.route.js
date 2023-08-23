@@ -66,8 +66,6 @@ router.get(
 router.post(
   '/favorites',
   tokenMiddleware.auth,
-  body('comicType')
-    .exists().withMessage('comicType is required'),
   body('comicId')
     .exists().withMessage('comicId is required')
     .isLength({ min: 1 }).withMessage('comicId can not be empty'),
