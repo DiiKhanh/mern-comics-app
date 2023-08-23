@@ -121,7 +121,11 @@ const TopBar = () => {
                       to={item.path}
                       sx={{
                         color: appState.includes(item.state) ? 'primary.contrastText' : 'inherit',
-                        mr: 2
+                        mr: 2,
+                        transition: 'all 0.2s ease',
+                        ' &:hover':{
+                          background:(theme) => theme.palette.primary.main
+                        }
                       }}
                       variant={appState.includes(item.state) ? 'contained' : 'text'}
                     >

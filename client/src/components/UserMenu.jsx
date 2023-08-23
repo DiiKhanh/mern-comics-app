@@ -42,7 +42,7 @@ const UserMenu = () => {
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <TextAvatar text={user?.displayName}/>
-                <Typography sx={{ marginLeft: '5px', fontSize:'16px' }}>{user?.displayName}</Typography>
+                <Typography sx={{ marginLeft: '5px', fontSize:'16px', display:{ xs:'none', sm:'block' } }}>{user?.displayName}</Typography>
               </IconButton>
             </Tooltip>
             <Menu

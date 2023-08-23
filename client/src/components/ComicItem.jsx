@@ -13,17 +13,20 @@ const ComicItem = ({ comic }) => {
   return (
     <>
       <Link to={routesGen.comicDetail(comic?.id)}>
-        <Card sx={{ maxWidth: { xs: 200, md: 300 }, position: 'relative', transition: 'all .2s ease',
+        <Card sx={{ position: 'relative', transition: 'all .2s ease',
           '&:hover .title': {
             color: (theme) => theme.palette.primary.main
           }
         }}>
           <CardMedia
-            sx={{ height: { xs: 250, md: 350 }, objectFit: 'cover', objectPosition: 'center', transition: 'all .3s ease',
+            sx={{ objectFit: 'cover', objectPosition: 'center', transition: 'all .3s ease',
               transformOrigin: 'bottom',
               '&:hover' : {
                 scale: '1.05'
-              }
+              },
+              height: 'auto',
+              width:'100%',
+              aspectRatio:'2/3'
             }}
             image={comic?.thumbnail}
             title={comic?.title}
@@ -44,7 +47,8 @@ const ComicItem = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: 'red',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >Hot</Typography>
             }
@@ -53,7 +57,8 @@ const ComicItem = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: 'skyblue',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >End</Typography>
             }
@@ -62,7 +67,8 @@ const ComicItem = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: '#fbbf24',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >Up</Typography>
             }

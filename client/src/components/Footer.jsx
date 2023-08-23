@@ -6,7 +6,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Footer = () => {
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='xl' sx={{ marginTop: '4rem', marginBottom: '1rem' }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',

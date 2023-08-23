@@ -44,7 +44,7 @@ const MainLayout = () => {
       <AuthModal />
       {/* login */}
       {/* view  */}
-      <Box display='flex' minHeight='100vh' height='5000px'>
+      <Box display='flex' minHeight='100vh'>
         {/* Header */}
         <TopBar />
         {/* Header */}

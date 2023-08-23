@@ -16,17 +16,20 @@ const ComicItemGrid = ({ comic }) => {
   return (
     <>
       <Link to={routesGen.comicDetail(comic?.id)}>
-        <Card sx={{ maxWidth: { xs: 200, md: 300 }, position: 'relative', transition: 'all .2s ease',
+        <Card sx={{ position: 'relative', transition: 'all .2s ease',
           '&:hover .title': {
             color: (theme) => theme.palette.primary.main
           }
         }}>
           <CardMedia
-            sx={{ height: { xs: 250, md: 350 }, objectFit: 'cover', objectPosition: 'center', transition: 'all .3s ease',
+            sx={{ objectFit: 'cover', objectPosition: 'center', transition: 'all .3s ease',
               transformOrigin: 'bottom',
               '&:hover' : {
                 scale: '1.05'
-              }
+              },
+              height: { xs: 250, md: 350 },
+              width:'100%',
+              aspectRatio:'2/3'
             }}
             image={comic?.thumbnail}
             title={comic?.title}
@@ -47,7 +50,8 @@ const ComicItemGrid = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: 'red',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >Hot</Typography>
             }
@@ -56,7 +60,8 @@ const ComicItemGrid = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: 'skyblue',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >End</Typography>
             }
@@ -65,7 +70,8 @@ const ComicItemGrid = ({ comic }) => {
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: '#fbbf24',
-                  borderRadius: '4px'
+                  borderRadius: '4px',
+                  fontSize:'12px'
                 }}
               >Up</Typography>
             }
@@ -121,8 +127,8 @@ const ComicItemGrid = ({ comic }) => {
                 color='primary'
                 sx={{
                   position: 'absolute',
-                  top: 2,
-                  right: 2,
+                  top: '10%',
+                  left: 0,
                   fontSize: '2rem'
                 }}
               />

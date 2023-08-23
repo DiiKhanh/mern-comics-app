@@ -21,6 +21,7 @@ import { LoadingButton } from '@mui/lab';
 import Stack from '@mui/material/Stack';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import DownloadIcon from '@mui/icons-material/Download';
+import { setAppState } from '../redux/features/appStateSlice';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
@@ -41,6 +42,7 @@ const ComicDetail = () => {
   };
 
   useEffect(() => {
+    dispatch(setAppState(''));
     const getComic = async () => {
       try {
         dispatch(setGlobalLoading(true));
