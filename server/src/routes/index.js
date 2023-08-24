@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use('/comic', comicRoute);
 router.use('/user', userRoute);
-router.use('/review', reviewRoute);
+router.use('/reviews', reviewRoute);
 
 export default router;

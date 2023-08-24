@@ -97,8 +97,8 @@ const ComicItemGrid = ({ comic }) => {
               lineHeight: '1.25rem',
               transitionDuration: '.2s',
               display: '-webkit-box',
-              '-webkit-box-orient': 'vertical',
-              '-webkit-line-clamp': '2'
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: '2'
             }}>{comic?.title}</Typography>
             <Divider sx={{ border:'1px solid gray', marginBottom: '0.5rem', marginTop:'1rem' }} />
             <Box className='title'>

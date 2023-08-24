@@ -25,6 +25,11 @@ import { setAppState } from '../redux/features/appStateSlice';
 import ChapterList from '../components/ChapterList';
 import Divider from '@mui/material/Divider';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import ComicReview from '../components/ComicReview';
+import ContainerBox from '../components/ContainerBox';
+import comicConfigs from '../apis/configs/comic.config';
+import ComicSlide from '../components/ComicSlide';
+import RecommendSlide from '../components/RecommendSlide';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
@@ -198,7 +203,7 @@ const ComicDetail = () => {
                         >{comic?.total_views.toLocaleString()}</Typography>
                       </Box>
                       <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
-                        <ThumbUpIcon fontSize='medium' sx={{ color: 'orange' }} /><Typography
+                        <ThumbUpIcon fontSize='medium' sx={{ color: '#ff6b6b' }} /><Typography
                           sx={{ fontSize: '16px' }}
                         >{ comic?.followers.toLocaleString()}</Typography>
                       </Box>
@@ -206,14 +211,14 @@ const ComicDetail = () => {
                     <Box marginY={3}>
                       <Typography sx={{
                         display: `${show ? 'block' : '-webkit-box'}`,
-                        '-webkit-box-orient': `${show ? 'horizontal' : 'vertical'}`,
-                        '-webkit-line-clamp': `${show ? 'none' : '3'}`,
+                        WebkitBoxOrient: `${show ? 'horizontal' : 'vertical'}`,
+                        WebkitLineClamp: `${show ? 'none' : '3'}`,
                         overflow:`${show ? 'visible' : 'hidden'}`
                       }} variant='inherit'>
                         {comic?.description.replace(/NetTruyen/g, 'KComics')}
                       </Typography>
                       <Button onClick={setClickShow} sx={{ padding:0 }}>
-                        { show ? 'Show less' : 'Show more'}
+                        { show ? 'Show less' : 'Show more' }
                       </Button>
                     </Box>
                     {/* buttons */}
@@ -257,6 +262,18 @@ const ComicDetail = () => {
               <Divider sx={{ borderWidth: '3px', width:'100%' }}/>
               <ChapterList chapters={chapters} comicId={comic?.id}/>
             </Box>
+
+            <ComicReview reviews={comic?.reviews} comic={comic} />
+
+            <ContainerBox header="you may also like" icon={<ThumbUpIcon />}>
+              {comic.recommend.length > 0 && (
+                <RecommendSlide comics={comic.recommend} />
+              )}
+              {comic.recommend.length === 0 && (
+                <ComicSlide comicType={comicConfigs.comicType.popular}/>
+              )}
+            </ContainerBox>
+
           </Box>
         </Container>
       </>

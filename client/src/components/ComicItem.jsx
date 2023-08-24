@@ -96,8 +96,8 @@ const ComicItem = ({ comic }) => {
               lineHeight: '1.25rem',
               transitionDuration: '.2s',
               display: '-webkit-box',
-              '-webkit-box-orient': 'vertical',
-              '-webkit-line-clamp': '2'
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: '2'
             }}>{comic?.title}</Typography>
           </Box>
           {
