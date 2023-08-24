@@ -22,6 +22,9 @@ import Stack from '@mui/material/Stack';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import DownloadIcon from '@mui/icons-material/Download';
 import { setAppState } from '../redux/features/appStateSlice';
+import ChapterList from '../components/ChapterList';
+import Divider from '@mui/material/Divider';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
@@ -34,6 +37,7 @@ const ComicDetail = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [onRequest, setOnRequest] = useState(false);
   const [genres, setGenres] = useState([]);
+  const [chapters, setChapters] = useState([]);
 
   const [show, setShow] = useState(false);
 
@@ -51,6 +55,7 @@ const ComicDetail = () => {
           setComic(response);
           setIsFavorite(response.isFavorite);
           setGenres(response.genres);
+          setChapters(response.chapters);
         }
         if (err) {
           toast.error(err.message);
@@ -120,6 +125,7 @@ const ComicDetail = () => {
     }
   };
 
+
   return (
     comic ? (
       <>
@@ -130,7 +136,6 @@ const ComicDetail = () => {
             <Box sx={{ ...uiConfigs.backgroundDetail }}></Box>
             {/* grid */}
             <Grid container spacing={5} sx={{ justifyContent:'center' }}>
-
               <Grid item>
                 <Box sx={{
                   width: { sm:'100%', xs:'14rem' },
@@ -246,6 +251,12 @@ const ComicDetail = () => {
                 </Grid>
               </Grid>
             </Grid>
+
+            <Box sx={{ marginTop:'1.25rem', maxWidth:'64rem', marginX:'auto' }}>
+              <Button sx={{ fontSize:'1.2rem' }} startIcon={<ImportContactsIcon/>}>Chapters</Button>
+              <Divider sx={{ borderWidth: '3px', width:'100%' }}/>
+              <ChapterList chapters={chapters} comicId={comic?.id}/>
+            </Box>
           </Box>
         </Container>
       </>

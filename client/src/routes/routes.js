@@ -14,7 +14,8 @@ export const routesGen = {
   favoriteList: '/favorites',
   reviewList: '/reviews',
   passwordUpdate: 'password-update',
-  comicDetail: (comicId) => `/comic/${comicId}`
+  comicDetail: (comicId) => `/comic/${comicId}`,
+  comicChapter: (comicId, chapterId) => `/comic/${comicId}/${chapterId}`
 };
 
 const routes = [
