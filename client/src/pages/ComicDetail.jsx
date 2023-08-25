@@ -30,6 +30,7 @@ import ContainerBox from '../components/ContainerBox';
 import comicConfigs from '../apis/configs/comic.config';
 import ComicSlide from '../components/ComicSlide';
 import RecommendSlide from '../components/RecommendSlide';
+import Helmet from '../components/Helmet';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
@@ -69,7 +70,7 @@ const ComicDetail = () => {
         toast.error('An error occurred while fetching data.');
       } finally {
         dispatch(setGlobalLoading(false));
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior:'smooth' });
       }
     };
     getComic();
@@ -133,7 +134,8 @@ const ComicDetail = () => {
 
   return (
     comic ? (
-      <>
+
+      <Helmet title={comic?.title}>
         <Container maxWidth='xl' sx={{ marginTop: '5rem' }}>
           <Box sx={{ color: 'primary.contrastText', position: 'relative',
             ...uiConfigs.style.mainContent }} >
@@ -276,7 +278,7 @@ const ComicDetail = () => {
 
           </Box>
         </Container>
-      </>
+      </Helmet>
     ) : null
   );
 };
