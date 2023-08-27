@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { setGlobalLoading } from '../redux/features/gloabalLoadingSlice';
 import { setAppState } from '../redux/features/appStateSlice';
 import comicApi from '../apis/modules/comic.api';
@@ -10,16 +10,21 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import { routesGen } from '../routes/routes';
+import Button from '@mui/material/Button';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 const ComicRead = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { comicId, chapterId } = useParams();
   const [chapter, setChapter] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const currentPageRef = useRef(0);
   const imageRefs = useRef([]);
+  const chapters = chapter?.chapters;
 
   useEffect(() => {
     dispatch(setAppState(''));
@@ -54,6 +59,15 @@ const ComicRead = () => {
   };
 
 
+  const handleChangeEpisode = (type) => {
+    const episode = [...chapters].reverse();
+    const chapterIdx = episode.findIndex((c) => c.id === Number(chapterId));
+    const nextChapterIdx = chapterIdx + (type === 'next' ? 1 : -1);
+    if (nextChapterIdx === -1) return;
+    if (episode[nextChapterIdx].id === undefined) return;
+    navigate(`/comic/${comicId}/${episode[nextChapterIdx].id}`);
+  };
+
   useEffect(() => {
     let firstRender = true;
 
@@ -80,7 +94,6 @@ const ComicRead = () => {
     };
   }, [currentPage]);
 
-
   return (
     <>
       {
@@ -94,7 +107,7 @@ const ComicRead = () => {
                 justifyContent: 'center',
                 marginBottom: '1rem',
                 rowGap: '5px',
-                backgroundColor: '#333',
+                backgroundColor:'#9ca3af',
                 paddingY: '0.725rem',
                 flexWrap:'wrap'
               }}>
@@ -124,9 +137,14 @@ const ComicRead = () => {
                 }
               </Box>
 
+              <Box sx={{ position: 'absolute', bottom: 0, top: 0, width:'100%', minHeight:'100vh',
+                backgroundColor:'#333', zIndex:-9
+              }}></Box>
               <Box sx={{ position: 'fixed', bottom: 0, insetInline: 0, width:'100%', display:'flex', alignItems:'center',
                 justifyContent:'center',
-                backgroundColor:'#9ca3af'
+                backgroundColor:'#9ca3af',
+                gap: '5px',
+                flexWrap:'wrap'
               }}>
                 {/* control */}
                 <Box sx={{ display:'flex', alignItems:'center', width: 300, gap:'5px' }}>
@@ -144,7 +162,16 @@ const ComicRead = () => {
                   />
                 </Box>
                 {/* control */}
-
+                <Box sx={{ display:'flex', alignItems:'center', gap:'5px', maxWidth:'80px', paddingY:'5px' }}>
+                  <Button variant="contained" startIcon={<ArrowBackIosIcon />}
+                    onClick={() => handleChangeEpisode('prev')}
+                    disabled={chapterId == chapters.at(-1).id}
+                  />
+                  <Button variant="contained" endIcon={<ArrowForwardIosIcon />}
+                    onClick={() => handleChangeEpisode('next')}
+                    disabled={chapterId == chapters[0].id}
+                  />
+                </Box>
               </Box>
             </Box>
           </Container>
