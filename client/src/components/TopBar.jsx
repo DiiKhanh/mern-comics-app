@@ -85,7 +85,7 @@ const TopBar = () => {
   return (
     <>
       <SideBar open={sidebarOpen} toggleSidebar={toggleSidebar}/>
-      <Toolbar id="back-to-top-anchor"/>
+      <Toolbar id='back-to-top-anchor'/>
       <ScrollTopBar>
         <AppBar sx={{ zIndex: 999 }}>
           <Container maxWidth='xl'>
@@ -154,7 +154,7 @@ const TopBar = () => {
       <ScrollTop>
         <Fab size='small' aria-label='scroll back to top'
           sx={{
-            bgcolor: mode === 'dark' ? 'primary.main' : 'initial'
+            bgcolor: mode === 'dark' ? 'primary.main' : 'primary.main'
           }}
         >
           <KeyboardArrowUpIcon />

@@ -21,7 +21,7 @@ const Footer = () => {
           <Typography >
         &copy; 2023 DiiKhanh. All rights reserved.
           </Typography>
-          <a href='https://github.com/DiiKhanh/mern-comics-app' target='_blank' rel="noreferrer" style={{ color: 'inherit' }}><GitHubIcon/></a>
+          <a href='https://github.com/DiiKhanh/mern-comics-app' target='_blank' rel='noreferrer' style={{ color: 'inherit' }}><GitHubIcon/></a>
         </Box>
         <Typography variant='body1' sx={{
           color: (theme) => theme.palette.primary.main

@@ -48,11 +48,11 @@ const SigninForm = ({ switchAuthState }) => {
           {
             ...signinForm.register('username')
           }
-          type="text"
-          placeholder="username"
-          name="username"
+          type='text'
+          placeholder='username'
+          name='username'
           fullWidth
-          color="success"
+          color='success'
           error={signinForm?.formState?.touchedFields && signinForm?.formState?.errors?.username?.message !== undefined}
           helperText={signinForm?.formState?.touchedFields && signinForm?.formState?.errors?.username?.message}
         />
@@ -60,21 +60,21 @@ const SigninForm = ({ switchAuthState }) => {
           {
             ...signinForm.register('password')
           }
-          type="password"
-          placeholder="password"
-          name="password"
+          type='password'
+          placeholder='password'
+          name='password'
           fullWidth
-          color="success"
+          color='success'
           error={signinForm?.formState?.touchedFields && signinForm?.formState?.errors?.password?.message !== undefined}
           helperText={signinForm?.formState?.touchedFields && signinForm?.formState?.errors?.password?.message}
         />
 
       </Stack>
       <LoadingButton
-        type="submit"
+        type='submit'
         fullWidth
-        size="large"
-        variant="contained"
+        size='large'
+        variant='contained'
         sx={{ marginTop: 4 }}
         loading={isLoginRequest}
       >
@@ -91,7 +91,7 @@ const SigninForm = ({ switchAuthState }) => {
 
       {errorMessage && (
         <Box sx={{ marginTop: 2 }}>
-          <Alert severity="error" variant="outlined" >{errorMessage}</Alert>
+          <Alert severity='error' variant='outlined' >{errorMessage}</Alert>
         </Box>
       )}
     </Box>

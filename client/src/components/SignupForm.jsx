@@ -49,11 +49,11 @@ const SignupForm = ({ switchAuthState }) => {
           {
             ...signupForm.register('username')
           }
-          type="text"
-          placeholder="username"
-          name="username"
+          type='text'
+          placeholder='username'
+          name='username'
           fullWidth
-          color="success"
+          color='success'
           error={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.username?.message !== undefined}
           helperText={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.username?.message}
         />
@@ -61,11 +61,11 @@ const SignupForm = ({ switchAuthState }) => {
           {
             ...signupForm.register('email')
           }
-          type="email"
-          placeholder="email"
-          name="email"
+          type='email'
+          placeholder='email'
+          name='email'
           fullWidth
-          color="success"
+          color='success'
           error={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.email?.message !== undefined}
           helperText={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.email?.message}
         />
@@ -73,11 +73,11 @@ const SignupForm = ({ switchAuthState }) => {
           {
             ...signupForm.register('password')
           }
-          type="password"
-          placeholder="password"
-          name="password"
+          type='password'
+          placeholder='password'
+          name='password'
           fullWidth
-          color="success"
+          color='success'
           error={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.password?.message !== undefined}
           helperText={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.password?.message}
         />
@@ -85,11 +85,11 @@ const SignupForm = ({ switchAuthState }) => {
           {
             ...signupForm.register('confirmPassword')
           }
-          type="password"
-          placeholder="confirmPassword"
-          name="confirmPassword"
+          type='password'
+          placeholder='confirmPassword'
+          name='confirmPassword'
           fullWidth
-          color="success"
+          color='success'
           error={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.confirmPassword?.message !== undefined}
           helperText={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.confirmPassword?.message}
         />
@@ -97,21 +97,21 @@ const SignupForm = ({ switchAuthState }) => {
           {
             ...signupForm.register('displayName')
           }
-          type="text"
-          placeholder="displayName"
-          name="displayName"
+          type='text'
+          placeholder='displayName'
+          name='displayName'
           fullWidth
-          color="success"
+          color='success'
           error={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.displayName?.message !== undefined}
           helperText={signupForm?.formState?.touchedFields && signupForm?.formState?.errors?.displayName?.message}
         />
 
       </Stack>
       <LoadingButton
-        type="submit"
+        type='submit'
         fullWidth
-        size="large"
-        variant="contained"
+        size='large'
+        variant='contained'
         sx={{ marginTop: 4 }}
         loading={isLoginRequest}
       >
@@ -128,7 +128,7 @@ const SignupForm = ({ switchAuthState }) => {
 
       {errorMessage && (
         <Box sx={{ marginTop: 2 }}>
-          <Alert severity="error" variant="outlined" >{errorMessage}</Alert>
+          <Alert severity='error' variant='outlined' >{errorMessage}</Alert>
         </Box>
       )}
     </Box>

@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { setGlobalLoading } from '../redux/features/gloabalLoadingSlice';
@@ -34,6 +34,7 @@ import Helmet from '../components/Helmet';
 
 const ComicDetail = () => {
   const { comicId } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -131,6 +132,11 @@ const ComicDetail = () => {
     }
   };
 
+  const handleReadNow = () => {
+
+    const chapterIdx = [...chapters].reverse()[0];
+    navigate(`/comic/${comicId}/${chapterIdx?.id}`);
+  };
 
   return (
     comic ? (
@@ -242,6 +248,7 @@ const ComicDetail = () => {
                         sx={{ width: 'max-content' }}
                         size='large'
                         startIcon={<TurnedInNotIcon />}
+                        onClick={handleReadNow}
                       >
                       read now
                       </Button>
@@ -267,7 +274,7 @@ const ComicDetail = () => {
 
             <ComicReview reviews={comic?.reviews} comic={comic} />
 
-            <ContainerBox header="you may also like" icon={<ThumbUpIcon />}>
+            <ContainerBox header='you may also like' icon={<ThumbUpIcon />}>
               {comic.recommend.length > 0 && (
                 <RecommendSlide comics={comic.recommend} />
               )}
