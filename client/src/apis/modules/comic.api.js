@@ -5,7 +5,8 @@ const comicEndpoints = {
   type: (comicType) => `comic/${comicType}`,
   detail: (comicId) => `comic/detail/${comicId}`,
   chapters: (comicId) => `comic/chapters/${comicId}`,
-  chapter: (comicId, chapterId) => `comic/chapters/${comicId}/${chapterId}`
+  chapter: (comicId, chapterId) => `comic/chapters/${comicId}/${chapterId}`,
+  search: (q, page) => `comic/search?q=${q}&page=${page}`
 };
 
 const comicApi = {
@@ -34,6 +35,12 @@ const comicApi = {
   getChapterDetail: async ({ comicId, chapterId }) => {
     try {
       const response = await publicClient.get(comicEndpoints.chapter(comicId, chapterId));
+      return { response };
+    } catch (err) { return { err }; }
+  },
+  search: async ({ q, page }) => {
+    try {
+      const response = await publicClient.get(comicEndpoints.search(q, page));
       return { response };
     } catch (err) { return { err }; }
   }
