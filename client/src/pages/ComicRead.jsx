@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { setGlobalLoading } from '../redux/features/gloabalLoadingSlice';
+import { setGlobalLoading } from '../redux/features/globalLoadingSlice';
 import { setAppState } from '../redux/features/appStateSlice';
 import comicApi from '../apis/modules/comic.api';
 import { toast } from 'react-toastify';

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { setGlobalLoading } from '../redux/features/gloabalLoadingSlice';
+import { setGlobalLoading } from '../redux/features/globalLoadingSlice';
 import { addFavorite, removeFavorite } from '../redux/features/userSlice';
 import { setAuthModalOpen } from '../redux/features/authModalSlice';
 import comicApi from '../apis/modules/comic.api';

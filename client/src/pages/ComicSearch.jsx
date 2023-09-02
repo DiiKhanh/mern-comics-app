@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import uiConfigs from '../configs/ui.configs';
 import comicsApi from '../apis/modules/comic.api';
 import SearchGrid from '../components/SearchGrid';
+import Helmet from '../components/Helmet';
 
 let timer;
 const timeout = 500;
@@ -60,29 +61,31 @@ const ComicSearch = () => {
 
   return (
     <>
-      <Toolbar />
-      <Box sx={{ ...uiConfigs.style.mainContent }}>
-        <Stack spacing={2}>
-          <TextField
-            color='success'
-            placeholder='Search KComics'
-            sx={{ width: '100%' }}
-            autoFocus
-            onChange={onQueryChange}
-          />
+      <Helmet title={query || 'Search'}>
+        <Toolbar />
+        <Box sx={{ ...uiConfigs.style.mainContent }}>
+          <Stack spacing={2}>
+            <TextField
+              color='success'
+              placeholder='Search KComics'
+              sx={{ width: '100%' }}
+              autoFocus
+              onChange={onQueryChange}
+            />
 
-          <SearchGrid comics={comics}/>
+            <SearchGrid comics={comics}/>
 
-          {comics.length > 0 && (
-            <LoadingButton
-              loading={onSearch}
-              onClick={() => setPage(page + 1)}
-            >
+            {comics.length > 0 && (
+              <LoadingButton
+                loading={onSearch}
+                onClick={() => setPage(page + 1)}
+              >
               load more
-            </LoadingButton>
-          )}
-        </Stack>
-      </Box>
+              </LoadingButton>
+            )}
+          </Stack>
+        </Box>
+      </Helmet>
     </>
   );
 };

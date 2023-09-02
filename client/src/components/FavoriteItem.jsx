@@ -11,11 +11,11 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Divider } from '@mui/material';
 
-const ComicItemGrid = ({ comic }) => {
+const FavoriteItem = ({ comic }) => {
   const { listFavorites } = useSelector(state => state.user);
   return (
     <>
-      <Link to={routesGen.comicDetail(comic?.id)}>
+      <Link to={routesGen.comicDetail(comic?.comicId)}>
         <Card sx={{ position: 'relative', transition: 'all .2s ease',
           '&:hover .title': {
             color: (theme) => theme.palette.primary.main
@@ -31,8 +31,8 @@ const ComicItemGrid = ({ comic }) => {
               width:'100%',
               aspectRatio:'2/3'
             }}
-            image={comic?.thumbnail}
-            title={comic?.title}
+            image={comic?.comicThumbnail}
+            title={comic?.comicTitle}
             component='img'
           />
           <Box sx={{
@@ -46,17 +46,7 @@ const ComicItemGrid = ({ comic }) => {
             gap: 1
           }}>
             {
-              comic.is_trending && <Typography
-                variant='subtitle2' sx={{
-                  padding: '2px 10px',
-                  bgcolor: 'red',
-                  borderRadius: '4px',
-                  fontSize:'12px'
-                }}
-              >Hot</Typography>
-            }
-            {
-              comic?.status === 'Completed' && <Typography
+              comic?.comicStatus === 'Completed' && <Typography
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
                   bgcolor: 'skyblue',
@@ -66,10 +56,10 @@ const ComicItemGrid = ({ comic }) => {
               >End</Typography>
             }
             {
-              comic?.updated_at?.includes('trước') && Number(comic?.updated_at.match(/\d+/)?.[0]) <= 3 && <Typography
+              comic.comicStatus === 'Ongoing' && <Typography
                 variant='subtitle2' sx={{
                   padding: '2px 10px',
-                  bgcolor: '#fbbf24',
+                  bgcolor: 'red',
                   borderRadius: '4px',
                   fontSize:'12px'
                 }}
@@ -99,7 +89,7 @@ const ComicItemGrid = ({ comic }) => {
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
               WebkitLineClamp: '2'
-            }}>{comic?.title}</Typography>
+            }}>{comic?.comicTitle}</Typography>
             <Divider sx={{ border:'1px solid gray', marginBottom: '0.5rem', marginTop:'1rem' }} />
             <Box className='title'>
               <Typography fontSize='14px' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{
@@ -111,13 +101,13 @@ const ComicItemGrid = ({ comic }) => {
                 <RemoveRedEyeIcon fontSize='small' /><Typography
                   sx={{ fontSize: '14px' }}
                 >{Intl.NumberFormat('en', { notation: 'compact' }).format(
-                    comic?.total_views)}</Typography>
+                    comic?.comicViews)}</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems:'center', gap:'5px' }}>
                 <ThumbUpIcon fontSize='small' /><Typography
                   sx={{ fontSize: '14px' }}
                 >{Intl.NumberFormat('en', { notation: 'compact' }).format(
-                    comic?.followers)}</Typography>
+                    comic?.comicFollowers)}</Typography>
               </Box>
             </Box>
           </Box>
@@ -140,4 +130,4 @@ const ComicItemGrid = ({ comic }) => {
 
 };
 
-export default ComicItemGrid;
+export default FavoriteItem;
